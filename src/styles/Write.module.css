@@ -1,0 +1,64 @@
+.container {
+  /* justify-content: center;
+  align-items: center; */
+  min-height: 100vh;
+  /* display: block; */
+}
+
+.form {
+  display: block;
+}
+
+.header {
+  margin: 10px;
+  padding: 10px;
+}
+
+.titleInput {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 600px;
+  margin: 10px 15px;
+  padding: 10px 10px;
+}
+
+.writerInput {
+  /* display: inline; */
+  /* justify-content: center;
+  align-items: center; */
+  width: 150px;
+  margin: 0px 10px;
+  padding: 5px;
+}
+
+.textarea {
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  width: 600px;
+  height: 400px;
+  margin: 20px 0px 30px 20px;
+  padding: 30px;
+}
+
+.button {
+  /* display: flex; */
+  /* float: left;
+  justify-content: center;
+  align-items: center; */
+  color: white;
+  background-color: #e9967a;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 250px;
+  height: 50px;
+  top: 500px;
+  margin: 0px 0px 0px 40px;
+  padding: 10px;
+  border-style: none;
+}
+
+.span {
+  margin: 0px 20px 0px 20px;
+}
