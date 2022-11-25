@@ -1,4 +1,16 @@
-import { atom, useRecoilValue } from "recoil";
+import { atom, useRecoilValue, selector } from "recoil";
 
-export const listState = atom({ key: "listState", default: [] });
-// default 값
+export const listState = atom({
+  key: "listState",
+  default: [
+    {
+      id: "1",
+      title: "제목1",
+      writer: "김세화",
+      created: "2022-11-24",
+      content: "내용1",
+      like: false,
+      lookup: 0,
+    },
+  ],
+});

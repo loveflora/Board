@@ -1,9 +1,8 @@
 import React from "react";
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { useRecoilValue } from "recoil";
-import { listState } from "../store/list";
+import { listState } from "../Store/list";
 import styles from "../styles/Board.module.css";
 import unLikeIcon from "../Icons/001.png";
 import likeIcon from "../Icons/002.png";
@@ -15,34 +14,38 @@ export default function Board() {
   return (
     <container className={styles.container}>
       <main className={styles.main}>
+        <h1 className={styles.h1}>📋 BOARD LIST</h1>
         <table className={styles.table}>
           <thead>
-            <th>번호</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>작성일자</th>
-            <th>조회수</th>
-            <th>좋아요</th>
+            <tr>
+              <th>번호</th>
+              <th>제목</th>
+              <th>작성자</th>
+              <th>작성일자</th>
+              <th>조회수</th>
+              <th>좋아요</th>
+            </tr>
           </thead>
           <tbody>
-            {list.map((v, i) => {
+            {list.map((data, id) => {
               return (
                 <tr
                   onClick={() => {
-                    navigate(`/Board/Detail/${v.id}`);
+                    navigate(`/Board/Detail/${data.id}`);
                   }}
                 >
-                  <td>{v.id}</td>
-                  <td>{v.title}</td>
-                  <td>{v.writer}</td>
-                  <td>{v.created}</td>
-                  <td>{v.lookUp}</td>
+                  {/* 행클릭하면 이동 */}
+                  <td>{data.id}</td>
+                  <td>{data.title}</td>
+                  <td>{data.writer}</td>
+                  <td>{data.created}</td>
+                  <td>{data.lookup}</td>
                   <td>
-                    {v.like ? (
+                    {data.like ? (
                       <img
                         className={styles.img}
                         src={likeIcon}
-                        alt="like"
+                        alt="isLike"
                         width="25"
                         height="25"
                       />
@@ -50,7 +53,7 @@ export default function Board() {
                       <img
                         className={styles.img}
                         src={unLikeIcon}
-                        alt="unlike"
+                        alt="isLike"
                         width="25"
                         height="25"
                       />
@@ -68,6 +71,7 @@ export default function Board() {
       >
         작성하기
       </button>
+      <h5 className={styles.h5}> MADE BY. SAYWHAT</h5>
     </container>
   );
 }

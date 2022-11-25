@@ -2,6 +2,7 @@ import App from "../App";
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import styles from "../styles/Login.module.css";
 
 export default function Login() {
@@ -25,6 +26,9 @@ export default function Login() {
   return (
     <container className={styles.container}>
       <form>
+        <div className={styles.div}>
+          <p className={styles.p}>👋 HI, THERE ? </p>
+        </div>
         <input
           className={styles.input}
           value={inputEmail}

@@ -5,8 +5,35 @@
   min-height: 100vh;
 }
 
+.div {
+  /*This part is important for centering*/
+  display: grid;
+  place-items: center;
+}
+
 .p {
-  color: red;
+  color: rgb(73, 63, 63);
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: bold;
+  width: 12ch;
+  animation: typing 1s steps(13), blink 0.4s step-end infinite alternate;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid;
+  font-size: 2em;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes blink {
+  60% {
+    border-color: transparent;
+  }
 }
 
 .input {
@@ -18,12 +45,8 @@
   padding: 5px 39px 5px 11px;
   border: solid 1px #dadada;
   box-sizing: border-box;
-}
-
-.Box {
-  background: black;
-  color: white;
-  padding: 2rem;
+  border: none;
+  outline: #e9967a;
 }
 
 .button {

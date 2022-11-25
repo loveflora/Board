@@ -3,72 +3,94 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { listState } from "../../store/list";
-import styles from "../../styles/Write.module.css";
+import { listState } from "../../Store/list";
+import styles from "../../styles/Edit.module.css";
 
 export default function Edit() {
+  // const [list, setList] = useSetRecoilState(listState);
   const list = useRecoilValue(listState);
   const setList = useSetRecoilState(listState);
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const { id } = useParams();
 
-  const findData = list.find((v) => {
-    return v.id == id;
+  const EditHandler = () => {
+    setList((prevState) => {
+      const copy = [...prevState];
+      return copy.map((item) => {
+        if (item.id.toString() === id) {
+          return {
+            ...item,
+            title: inputData.title,
+            content: inputData.content,
+            writer: inputData.writer,
+          };
+        }
+        return item;
+      });
+    });
+  };
+
+  const findItem = list.find((item) => {
+    return item.id == id;
   });
 
-  console.log(findData.inputData);
+  const [inputData, setInputData] = useState({
+    id: findItem.id,
+    title: findItem.title,
+    writer: findItem.writer,
+    content: findItem.content,
+    created: findItem.created,
+    like: findItem.like,
+    lookup: findItem.lookup,
+  });
 
-  //   const handleUpdate = () => {
-  //     const onChange = (e) => {
-  //       const { name, value } = e.target;
-
-  //       setList((listState) => {
-  //         const copy = [...listState];
-  //         return [
-  //           {
-  //         [name]: value
-
-  //       }
-  //     ]
-  //   }{ ...findData.inputData, });
-  // };
-
-  // handleUpdate = (id, data) => {
-  //   const { users } = this.state;
-  //   this.setState({
-  //     users: users.map((user) => (user.id === id ? { ...user, ...data } : user))
-  //   });
-  // };
+  const onChange = (e) => {
+    setInputData({
+      ...inputData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   return (
     <container className={styles.container}>
-      <form className={styles.form}>
+      <main className={styles.main}>
         <header className={styles.header}>
-          <input className={styles.titleInput} name="title" type="text"></input>
+          <input
+            className={styles.titleInput}
+            type="text"
+            name="title"
+            value={inputData.title}
+            placeholder="제목을 입력해주세요"
+            onChange={onChange}
+          ></input>
+          <span className={styles.writer}>💗 작성자 </span>
           <input
             className={styles.writerInput}
-            name="writer"
             type="text"
-            value={findData.writer}
-            // onChange={onChange}
+            name="writer"
+            value={inputData.writer}
+            onChange={onChange}
           ></input>
-          <span> 작성일자 : </span>
+          <span className={styles.span}>💗 작성일자 : {findItem.created}</span>
         </header>
         <textarea
           className={styles.textarea}
-          name="content"
           type="text"
+          name="content"
+          value={inputData.content}
+          onChange={onChange}
         ></textarea>
-      </form>
-      <button
-        className={styles.button}
-        onClick={() => {
-          navigate("/Board");
-        }}
-      >
-        수정완료
-      </button>
+        <writeButton
+          className={styles.button}
+          onClick={() => {
+            EditHandler();
+            navigate("/Board");
+          }}
+        >
+          작성 완료
+        </writeButton>
+      </main>
     </container>
   );
 }

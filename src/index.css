@@ -2,6 +2,8 @@
   padding: 0px;
   margin: 0px;
   box-sizing: border-box;
+  font-family: "Y콤퓨타체", "Roboto", sans-serif;
+  font: white;
 }
 
 ul,
@@ -14,4 +16,9 @@ html,
 body {
   width: 100%;
   height: 100%;
+  background-color: #f8d4c9;
+}
+
+input {
+  outline: #e9967a;
 }

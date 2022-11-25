@@ -2,22 +2,11 @@ import React from "react";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import { useRecoilValue } from "recoil";
 import { useSetRecoilState } from "recoil";
-
-import { listState } from "../../store/list";
+import { listState } from "../../Store/list";
 import styles from "../../styles/Write.module.css";
 
-import unLikeIcon from "../../Icons/001.png";
-import likeIcon from "../../Icons/002.png";
-
-export default function Write() {
-  const setList = useSetRecoilState(listState);
-  const list = useRecoilValue(listState);
-
-  const navigate = useNavigate();
-
+export default function Wirte(listData) {
   const date = new Date();
 
   const year = date.getFullYear();
@@ -32,29 +21,14 @@ export default function Write() {
     writer: "",
     created: today,
     content: "",
-    lookUp: 0,
     like: false,
+    lookup: 0,
   });
 
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    setInputData({ ...inputData, id: list.length + 1, [name]: value });
-  };
+  const setList = useSetRecoilState(listState);
 
-  const init = () => {
-    if (window.confirm("초기화하시겠습니까?")) {
-      setInputData((prevState) => ({
-        ...prevState,
-        title: "",
-        writer: "",
-        content: "",
-      }));
-    } else {
-      return;
-    }
-  };
+  const navigate = useNavigate();
 
-  // 추가
   const writeHandler = () => {
     setList((listState) => {
       const id = listState.length + 1;
@@ -66,7 +40,7 @@ export default function Write() {
           writer: inputData.writer,
           content: inputData.content,
           created: inputData.created,
-          lookUp: 0,
+          lookup: 0,
           like: false,
         },
         ...copy,
@@ -74,49 +48,67 @@ export default function Write() {
     });
   };
 
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setInputData({
+      ...inputData,
+      id: listData.length + 1,
+      [name]: value,
+    });
+  };
+
   console.log(inputData);
 
   return (
     <container className={styles.container}>
-      <form className={styles.main}>
-        <header className={styles.header}></header>
-        <input
-          className={styles.titleInput}
-          type="text"
-          name="title"
-          value={inputData.title}
-          placeholder="제목을 입력해주세요"
-          onChange={onChange}
-        ></input>
-        <span className={styles.span}>작성자 : </span>
-        <input
-          className={styles.writerInput}
-          type="text"
-          name="writer"
-          value={inputData.writer}
-          onChange={onChange}
-        ></input>
-        <span className={styles.span}>작성일자 : {today} </span>
-        <textarea
-          className={styles.textarea}
-          name="content"
-          placeholder="내용을 작성해주세요"
-          value={inputData.content}
-          onChange={onChange}
-        ></textarea>
+      <form className={styles.form}>
+        <header className={styles.header}>
+          <input
+            className={styles.titleInput}
+            type="text"
+            name="title"
+            value={inputData.title}
+            placeholder="제목을 입력해주세요"
+            onChange={onChange}
+          ></input>
+          <writer className={styles.writer}>💗 작성자 </writer>
+          <input
+            className={styles.writerInput}
+            type="text"
+            name="writer"
+            value={inputData.writer}
+            onChange={onChange}
+          ></input>
+          <span className={styles.span} value={today} onChange={onChange}>
+            💗 작성일자 : {today}
+          </span>
+          <textarea
+            className={styles.textarea}
+            type="text"
+            name="content"
+            value={inputData.content}
+            placeholder="내용을 입력해주세요."
+            onChange={onChange}
+          />
+        </header>
+        <button
+          className={styles.button}
+          onClick={() => {
+            writeHandler();
+            navigate("/Board");
+          }}
+        >
+          작성 완료
+        </button>
+        <button
+          className={styles.button}
+          onClick={() => {
+            alert("초기화하시겠습니까?");
+          }}
+        >
+          초기화
+        </button>
       </form>
-      <button
-        className={styles.button}
-        onClick={() => {
-          writeHandler();
-          navigate("/Board");
-        }}
-      >
-        작성완료
-      </button>
-      <button className={styles.button} onClick={init}>
-        초기화
-      </button>
     </container>
   );
 }
