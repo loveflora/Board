@@ -1,11 +1,10 @@
 import React from "react";
 
-import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import styles from "../../styles/Detail.module.css";
 import { listState } from "../../Store/list";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import unLikeIcon from "../../Icons/001.png";
 import likeIcon from "../../Icons/002.png";
 
@@ -48,6 +47,9 @@ export default function Detail() {
     <container className={styles.container}>
       <main className={styles.main}>
         <header className={styles.header}>
+          <div className={styles.div}>
+            <h1 className={styles.h1}>Take a Looook</h1>
+          </div>
           <span className={styles.no}>🌷 No. {findItem.id}</span>
           <span className={styles.title}>🌷 제목 : {findItem.title}</span>
           <br />

@@ -1,7 +1,7 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { listState } from "../Store/list";
 import styles from "../styles/Board.module.css";
 import unLikeIcon from "../Icons/001.png";
@@ -9,7 +9,21 @@ import likeIcon from "../Icons/002.png";
 
 export default function Board() {
   const navigate = useNavigate();
-  const list = useRecoilValue(listState);
+  const [list, setList] = useRecoilState(listState);
+  // const params = useParams();
+  // const id = params.id;
+
+  const toggleHandler = () => {
+    setList((prevState) => {
+      const copy = [...prevState];
+      return copy.map((item) => {
+        return {
+          ...item,
+          like: !item.like,
+        };
+      });
+    });
+  };
 
   return (
     <container className={styles.container}>
@@ -48,6 +62,10 @@ export default function Board() {
                         alt="isLike"
                         width="25"
                         height="25"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleHandler();
+                        }}
                       />
                     ) : (
                       <img
@@ -56,6 +74,10 @@ export default function Board() {
                         alt="isLike"
                         width="25"
                         height="25"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleHandler();
+                        }}
                       />
                     )}
                   </td>

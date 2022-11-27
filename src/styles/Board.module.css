@@ -1,4 +1,4 @@
-h1 {
+.h1 {
   font-size: 30px;
   color: rgb(78, 72, 72);
   text-transform: uppercase;
@@ -53,6 +53,10 @@ h1 {
 
 .table tr:hover {
   background-color: #fffafa5e;
+}
+
+.img {
+  cursor: pointer;
 }
 
 .button {

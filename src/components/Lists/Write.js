@@ -25,6 +25,8 @@ export default function Wirte(listData) {
     lookup: 0,
   });
 
+  // const [init, initData] = useState("");
+
   const setList = useSetRecoilState(listState);
 
   const navigate = useNavigate();
@@ -57,12 +59,46 @@ export default function Wirte(listData) {
     });
   };
 
+  const initHandler = () => {
+    setInputData((prevState) => ({
+      ...prevState,
+      title: "",
+      writer: "",
+      content: "",
+    }));
+  };
+
+  // const initHandler = () => {
+  //   setInputData({ ...inputData, title: "", writer: "", content: "" });
+  // };
+
+  // const initHandler = () => {
+  //   setList((listState) => {
+  //     const id = listState.length + 1;
+  //     const copy = [...listState];
+  //     return [
+  //       {
+  //         id: id,
+  //         title: "",
+  //         writer: "",
+  //         content: "",
+  //         created: inputData.created,
+  //         lookup: 0,
+  //         like: false,
+  //       },
+  //       ...copy,
+  //     ];
+  //   });
+  // };
   console.log(inputData);
 
   return (
     <container className={styles.container}>
       <form className={styles.form}>
         <header className={styles.header}>
+          <div className={styles.div}>
+            <h1 className={styles.h1}>👩🏻‍💻 Show Yourself ! </h1>
+          </div>
           <input
             className={styles.titleInput}
             type="text"
@@ -101,9 +137,14 @@ export default function Wirte(listData) {
           작성 완료
         </button>
         <button
+          type="button"
           className={styles.button}
           onClick={() => {
-            alert("초기화하시겠습니까?");
+            if (window.confirm("초기화하시겠습니까?")) {
+              initHandler();
+            } else {
+              return false;
+            }
           }}
         >
           초기화
